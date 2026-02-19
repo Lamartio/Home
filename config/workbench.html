@@ -1,0 +1,72 @@
+<!-- Custom workbench entry point for VS Code Web portfolio deployment.
+     This replaces the default workbench.html produced by the build.
+     It opens a read-only memfs workspace and loads the portfolio-startup
+     extension automatically. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio — VS Code Web</title>
+  <style>
+    html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%; }
+  </style>
+</head>
+<body aria-label="VS Code Web">
+  <!-- Loader is produced by the VS Code build at vs/loader.js -->
+  <script src="./vs/loader.js"></script>
+  <script>
+    // Resolve the base URL so relative paths inside VS Code bundles work.
+    const base = window.location.href.replace(/\/[^/]*$/, '/');
+
+    require.config({ baseUrl: base });
+
+    require(['vs/workbench/workbench.web.main'], function () {
+      const { create } = require('vs/workbench/workbench.web.main');
+
+      create(document.body, {
+        // ---------- workspace ----------
+        // Open a folder backed by the memfs file system provider that the
+        // portfolio-startup extension registers.
+        folderUri: { scheme: 'memfs', authority: '', path: '/' },
+
+        // ---------- product / branding ----------
+        productConfiguration: {
+          nameShort: 'Portfolio',
+          nameLong: 'Portfolio — VS Code Web',
+          applicationName: 'portfolio-web',
+          dataFolderName: '.portfolio-web',
+          version: '1.0.0',
+          extensionsGallery: undefined // no marketplace
+        },
+
+        // ---------- default settings (read-only, dark theme) ----------
+        configurationDefaults: {
+          'files.readOnly': true,
+          'editor.readOnly': true,
+          'workbench.startupEditor': 'none',
+          'workbench.tips.enabled': false,
+          'workbench.colorTheme': 'Default Dark Modern',
+          'explorer.openEditors.visible': 0,
+          'window.menuBarVisibility': 'compact',
+          'breadcrumbs.enabled': true,
+          'workbench.statusBar.visible': true,
+          'workbench.activityBar.location': 'top',
+          'markdown.preview.scrollEditorWithPreview': false
+        },
+
+        // ---------- bundled extensions ----------
+        // Tell the workbench where to find the portfolio-startup extension.
+        // The build script copies it into ./extensions/portfolio-startup/.
+        additionalBuiltinExtensions: [
+          {
+            scheme: window.location.protocol === 'https:' ? 'https' : 'http',
+            authority: window.location.host,
+            path: (new URL('./extensions/portfolio-startup', base)).pathname
+          }
+        ]
+      });
+    });
+  </script>
+</body>
+</html>

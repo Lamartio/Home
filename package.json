@@ -1,0 +1,13 @@
+{
+  "name": "vscode-web-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Self-hosted VS Code for the Web — read-only portfolio with auto README preview, deployable to GitHub Pages",
+  "scripts": {
+    "build": "bash build.sh",
+    "build:extension": "cd extensions/portfolio-startup && npm install && npm run build",
+    "serve": "npx serve dist --cors -l 8080",
+    "clean": "rm -rf dist vscode-source"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,8 @@
+{
+  "nameShort": "Portfolio",
+  "nameLong": "Portfolio — VS Code Web",
+  "applicationName": "portfolio-web",
+  "dataFolderName": ".portfolio-web",
+  "extensionsGallery": null,
+  "linkProtectionTrustedDomains": ["https://*.github.io"]
+}

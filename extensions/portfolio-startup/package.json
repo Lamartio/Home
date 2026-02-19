@@ -1,0 +1,36 @@
+{
+  "name": "portfolio-startup",
+  "displayName": "Portfolio Startup",
+  "description": "Auto-opens README.md as a Markdown preview in a read-only VS Code Web workspace",
+  "version": "1.0.0",
+  "publisher": "portfolio",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": ["onFileSystem:memfs", "onStartupFinished"],
+  "browser": "./dist/web/extension.js",
+  "contributes": {
+    "configurationDefaults": {
+      "files.readOnly": true,
+      "editor.readOnly": true,
+      "workbench.startupEditor": "none",
+      "workbench.tips.enabled": false,
+      "workbench.colorTheme": "Default Dark Modern",
+      "explorer.openEditors.visible": 0,
+      "markdown.preview.scrollEditorWithPreview": false
+    }
+  },
+  "scripts": {
+    "build": "webpack --mode production",
+    "watch": "webpack --mode development --watch"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
